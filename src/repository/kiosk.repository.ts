@@ -13,7 +13,7 @@ class KioskRepository {
 
   public findById = (id: string): Promise<Kiosk> => {
     return this.kioskRepository.findOne({
-      where: { id: id },
+      where: { id: Number(id) },
     });
   }
 

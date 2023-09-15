@@ -13,7 +13,7 @@ class CampaignRepository {
 
   public findById = (id: string): Promise<Campaign> => {
     return this.campaignRepository.findOne({
-      where: { id: id },
+      where: { id: Number(id) },
     });
   }
 
