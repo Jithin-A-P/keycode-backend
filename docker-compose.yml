@@ -1,0 +1,55 @@
+version: "2.1"
+services:
+  postgres:
+    image: postgres:15.3
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgresdata:/data/postgres
+      - postgresdbdata:/var/lib/postgresql/data
+
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=decodex
+    networks:
+      - postgres
+
+  pgadmin:
+    image: dpage/pgadmin4:7.4
+    depends_on:
+      - postgres
+    links:
+      - postgres:postgres
+    ports:
+      - 9091:9091
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@example.com
+      - PGADMIN_DEFAULT_PASSWORD=admin
+    volumes:
+      - pgadmindata:/root/.pgadmin
+      - pgadminlibdata:/var/lib/pgadmin
+    networks:
+      - postgres
+
+  redis:
+    container_name: redis_keycode
+    image: redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redisdata:/data
+
+volumes:
+  postgresdata:
+    driver: local
+  postgresdbdata:
+    driver: local
+  pgadmindata:
+  pgadminlibdata:
+  redisdata:
+    
+networks:
+  postgres:
+    driver: bridge
+

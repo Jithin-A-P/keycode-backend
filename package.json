@@ -12,7 +12,8 @@
     "watch-server": "npx nodemon --watch 'src/**/*' -e ts,tsx --exec 'npx ts-node' ./src/app.ts",
     "migration:generate": "npm run build && npx typeorm migration:generate -d dist/db/postgres.db.js",
     "migration:run": "npm run build && npx typeorm migration:run -d dist/db/postgres.db.js",
-    "migration:revert": "npm run build && npx typeorm migration:revert -d dist/db/postgres.db.js"
+    "migration:revert": "npm run build && npx typeorm migration:revert -d dist/db/postgres.db.js",
+    "format": "prettier --write ."
   },
   "author": "",
   "license": "ISC",
