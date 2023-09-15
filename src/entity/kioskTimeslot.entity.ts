@@ -1,5 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToMany,ManyToOne } from "typeorm";
 import Kiosk from "./kiosk.entity";
+import Campaign from "./campaign.entity";
 
 @Entity()
 class KioskTimeSlot {
@@ -23,6 +24,9 @@ class KioskTimeSlot {
 
   @ManyToOne(() => Kiosk, (kiosk) => kiosk.timeslots)
   kiosk: Kiosk;
+
+  @ManyToMany(() => Campaign, (campaign) => campaign.timeslots, { cascade: true })
+  campaigns:Campaign[]
 }
 
 export default KioskTimeSlot;
