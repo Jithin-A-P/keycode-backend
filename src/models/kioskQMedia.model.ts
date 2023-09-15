@@ -1,16 +1,17 @@
-import { IsEnum, IsString, IsOptional, ValidateNested, ValidateIf, IsNotEmpty } from 'class-validator';
-import MediaDto from '../dto/media.dto';
-import { Type } from 'class-transformer';
+import { IsEnum, IsString, IsOptional, ValidateNested, ValidateIf, IsNotEmpty } from "class-validator";
+import MediaDto from "../dto/media.dto";
+import { Type } from "class-transformer";
 
 export enum KioskQMediaType {
   AD = "ad",
   INSTANT_MEDIA = "instant_media",
-  GAME = "game",
+  GAME_ONE_PLAYER = "game_one_player",
+  GAME_TWO_PLAYERS = "game_two_players",
   ADVERTISE_HERE = "advertise_here",
 }
 
 export class KioskQMedia {
-  id: number;
+  id?: number;
 
   @IsEnum(KioskQMediaType)
   type: KioskQMediaType;
@@ -18,14 +19,18 @@ export class KioskQMedia {
   @IsString()
   qrcodeUrl: string;
 
-  @ValidateIf(input => input.type === KioskQMediaType.GAME)
+  @ValidateIf(
+    (input) => input.type === KioskQMediaType.GAME_ONE_PLAYER || input.type === KioskQMediaType.GAME_TWO_PLAYERS
+  )
   @IsNotEmpty()
   @IsString()
   name?: string;
 
-  @ValidateIf(input => input.type === KioskQMediaType.AD)
+  @ValidateIf((input) => input.type === KioskQMediaType.AD)
   @IsNotEmpty()
   @ValidateNested({ each: true })
   @Type(() => MediaDto)
   media?: MediaDto;
+
+  status: string;
 }

@@ -8,7 +8,7 @@
     "test-coverage": "jest --coverage --setupFiles dotenv/config",
     "start-server": "node dist/app.js",
     "build": "rm -rf dist && npx tsc && cp .env dist/.env",
-    "dev": "NODE_ENV=development tsc-watch --onSuccess \"node ./dist/app.js\"",
+    "dev": "NODE_ENV=development PORT=5000 tsc-watch --onSuccess \"node ./dist/app.js\"",
     "watch-server": "npx nodemon --watch 'src/**/*' -e ts,tsx --exec 'npx ts-node' ./src/app.ts",
     "migration:generate": "npm run build && npx typeorm migration:generate -d dist/db/postgres.db.js",
     "migration:run": "npm run build && npx typeorm migration:run -d dist/db/postgres.db.js",
@@ -33,6 +33,7 @@
     "socket.io": "^4.7.2",
     "typeorm": "^0.3.17",
     "typeorm-naming-strategies": "^4.1.0",
+    "uuid": "^9.0.1",
     "winston": "^3.10.0"
   },
   "devDependencies": {

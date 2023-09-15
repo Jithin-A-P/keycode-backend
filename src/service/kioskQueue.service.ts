@@ -12,10 +12,24 @@ export class KioskQServiceCls {
     if (!this.queues[kioskId]) {
       this.queues[kioskId] = [];
     }
-    this.queues[kioskId].push({
+    const data = {
       id: ++this.qMediaCounter,
-      ...kioskMedia
-    });
+      ...kioskMedia,
+    };
+    this.queues[kioskId].push(data);
+    return data;
+  }
+
+  addToKioskQFront(kioskId: string, kioskMedia: KioskQMedia) {
+    if (!this.queues[kioskId]) {
+      this.queues[kioskId] = [];
+    }
+    const data = {
+      id: ++this.qMediaCounter,
+      ...kioskMedia,
+    };
+    this.queues[kioskId].unshift(data);
+    return data;
   }
 
   getKioskQ(kioskId: string) {
@@ -23,9 +37,15 @@ export class KioskQServiceCls {
   }
 
   getNextKioskQItem(kioskId: string) {
-    const current =this.queues[kioskId][0]
-    if(current.type!==KioskQMediaType.GAME){
-      this.queues[kioskId].push(current)
+    const current = this.queues[kioskId][0];
+    if (
+      !(
+        current.type === KioskQMediaType.GAME_ONE_PLAYER ||
+        current.type === KioskQMediaType.GAME_TWO_PLAYERS ||
+        current.type === KioskQMediaType.INSTANT_MEDIA
+      )
+    ) {
+      this.queues[kioskId].push(current);
     }
     return this.queues[kioskId].shift();
   }
