@@ -3,7 +3,6 @@ dotenv.config({ path: __dirname + '/../.env' })
 
 import { DataSource } from 'typeorm'
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies'
-import User from '../entity/user.entity'
 
 const dataSource = new DataSource({
   type: 'postgres',
@@ -12,10 +11,10 @@ const dataSource = new DataSource({
   username: process.env.POSTGRES_USERNAME,
   password: process.env.POSTGRES_PASSWORD,
   database: process.env.POSTGRES_DATABASE,
-  entities: [User],
   logging: false,
   namingStrategy: new SnakeNamingStrategy(),
-  synchronize: false,
+  synchronize: true,
+  entities: ['dist/**/*.entity.{ts,js}'],
   migrations: ['dist/db/migrations/*.js'],
 })
 
