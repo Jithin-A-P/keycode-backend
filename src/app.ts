@@ -22,6 +22,7 @@ import KioskTimeSlotRepository from './repository/kiosk.timeslot.repository'
 import Kiosk from './entity/kiosk.entity'
 import KioskTimeSlot from './entity/kioskTimeslot.entity'
 import KioskService from './service/kiosk.service'
+import { runPostRequestsSequentially } from './script'
 
 const server = express()
 const PORT = process.env.PORT
@@ -52,6 +53,7 @@ dataSource
     server.listen(PORT, () => {
       logger.log({ level: 'info', message: `Server started on port : ${PORT}` })
     })
+    runPostRequestsSequentially();
   })
   .catch((error: Error) => {
     logger.log({
