@@ -68,8 +68,8 @@ class CamapignService {
     const {  timeSlotsIds,...rest } = campaignDto;
     const kiosktimeSlots = await this.kioskTimeslotRepository.findByIds(timeSlotsIds);
     rest.timeSlots= kiosktimeSlots;
-
-    const campaign = await this.campaignRepository.add(rest);
+    const campaign = Object.assign(new Campaign(), rest);
+    await this.campaignRepository.add(campaign);
     return campaign;
   }
 
