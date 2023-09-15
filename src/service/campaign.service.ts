@@ -3,9 +3,13 @@ import NotFoundException from '../exception/not-found.exception';
 import CampaignRepository from '../repository/campaign.repository';
 import CampaignDto from '../dto/campaign.dto';
 import KioskTimeSlotRepository from '../repository/kiosk.timeslot.repository';
+import KioskTimeSlot from '../entity/kioskTimeslot.entity';
+import KioskRepository from '../repository/kiosk.repository';
 
 class CamapignService {
-  constructor(private campaignRepository: CampaignRepository,private kioskTimeslotRepository: KioskTimeSlotRepository ) {}
+  constructor(private campaignRepository: CampaignRepository,
+    private kioskTimeslotRepository: KioskTimeSlotRepository,
+    private kioskRepository: KioskRepository ) {}
 
   public getAllCampaigns = (
     rowsPerPage: number,
@@ -20,13 +24,35 @@ class CamapignService {
     return this.campaignRepository.findAll(skip, take);
   }
 
-  public getCampaignById = async (id: string): Promise<Campaign> => {
+  public getCampaignById = async (id: string): Promise<any> => {
     const campaign = await this.campaignRepository.findById(id);
     if (!campaign) {
       throw new NotFoundException(`Campaign not found with id: ${id}`);
     }
+    const campaignCopy = {...campaign};
+
+    const media = await campaign.media;
+    const timeSlots =await campaign.timeSlots;
+    const groupedData =timeSlots.reduce((result, item) => {
+      const keyValue = item['kioskId'];
+  
+      // If the key doesn't exist in the result, create an empty array for it
+      if (!result[keyValue]) {
+        result[keyValue] = [];
+      }
+  
+      // Push the item to the corresponding key in the result
+      result[keyValue].push(item);
+      return result;
+    }, {});
+    const out =[]
+    for (const key in groupedData) {
+      const kisokTimeSlots =groupedData[key]
+      const kiosk = await this.kioskRepository.findById(kisokTimeSlots[0].kioskId)
+      out.push({"kiosk":kiosk,"selectedTimeslots":kisokTimeSlots})
+    }
     
-    return campaign;
+    return {"camapaign":campaignCopy,media,"kioskDetails":out};
   }
 
   public removeCampaignById = async (id: string): Promise<void> => {
