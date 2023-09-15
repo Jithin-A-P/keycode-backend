@@ -1,6 +1,6 @@
 import { KioskQMedia } from "../models/kioskQMedia.model";
 
-export class KioskQService {
+export class KioskQServiceCls {
   queues: { [key: string]: KioskQMedia[] };
   qMediaCounter = 0;
 
@@ -26,3 +26,7 @@ export class KioskQService {
     return this.queues[kioskId].shift();
   }
 }
+
+const KioskQService = new KioskQServiceCls();
+
+export default KioskQService;

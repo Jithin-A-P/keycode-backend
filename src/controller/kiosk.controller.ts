@@ -3,12 +3,12 @@ import validateBody from '../middleware/validate-body.middleware';
 import KioskDto from '../dto/kiosk.dto';
 import validateQuery from '../middleware/validate-query.middleware';
 import KioskService from '../service/kiosk.service';
-import { KioskQService } from '../service/kioskQueue.service';
 import { KioskQMedia } from '../models/kioskQMedia.model';
+import KioskQService, { KioskQServiceCls } from '../service/kioskQueue.service';
 
 class KioskController {
   public router: Router;
-  private kioskQService: KioskQService;
+  private kioskQService: KioskQServiceCls;
   constructor(private kioskService: KioskService) {
     this.router = Router();
     this.router.get('/', validateQuery, this.getAllKiosks);
@@ -19,7 +19,7 @@ class KioskController {
     this.router.get('/:id', this.getKioskById);
     this.router.put('/:id', validateBody(KioskDto), this.updateKioskById);
     this.router.delete('/:id', this.removeKioskById);
-    this.kioskQService = new KioskQService();
+    this.kioskQService = KioskQService;
   }
 
   private addKiosk = async (req: Request, res: Response, next: NextFunction) => {
