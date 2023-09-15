@@ -6,7 +6,7 @@ export enum KioskQMediaType {
   AD = "ad",
   INSTANT_MEDIA = "instant_media",
   GAME = "game",
-  PLAY_WIN = "play_win",
+  ADVERTISE_HERE = "advertise_here",
 }
 
 export class KioskQMedia {
