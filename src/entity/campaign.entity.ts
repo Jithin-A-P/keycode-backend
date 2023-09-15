@@ -26,11 +26,11 @@ class Campaign {
   @Column()
   mediaId: number;
 
-  @ManyToOne(() => Media, (media) => media.campaigns,{ eager: true })
+  @ManyToOne(() => Media, (media) => media.campaigns,{ lazy: true })
   @JoinTable({name:'mediaId'})
   media: Media;
 
-  @ManyToMany(() => KioskTimeSlot, (timeSlot) => timeSlot.campaigns,{ eager: true })
+  @ManyToMany(() => KioskTimeSlot, (timeSlot) => timeSlot.campaigns,{ lazy: true })
   @JoinTable()
   timeSlots: KioskTimeSlot[];
 }

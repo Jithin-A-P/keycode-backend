@@ -48,12 +48,11 @@ class CampaignController {
 
   private getCampaignById = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const kioskId = req.params.id;
-      if (!isUUID(kioskId)) throw new BadRequestException('Invalid kiosk id');
+      const camapignId = req.params.id;
 
-      const kiosk = await this.campaignService.getCampaignById(kioskId);
+      const campaign = await this.campaignService.getCampaignById(camapignId);
       res.status(200);
-      res.locals.data = kiosk;
+      res.locals.data = campaign;
       next();
     } catch (error) {
       next(error);
