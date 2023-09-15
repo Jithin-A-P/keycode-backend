@@ -26,6 +26,15 @@ class Campaign {
   @Column()
   mediaId: number;
 
+  @Column()
+  totalPrice: number;
+
+  @Column()
+  status: string;
+
+  @Column()
+  totalViews: number=0;
+
   @ManyToOne(() => Media, (media) => media.campaigns,{ lazy: true })
   @JoinTable({name:'mediaId'})
   media: Media;

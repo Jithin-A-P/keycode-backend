@@ -28,6 +28,19 @@ class CampaignDto {
   @IsNotEmpty()
   @IsNumber()
   frequency: number;
+
+  @IsNotEmpty()
+  @IsString()
+  status: string;
+
+  @IsNotEmpty()
+  @IsNumber()
+  totalPrice: number;
+
+  @IsNotEmpty()
+  @IsNumber()
+  totalViews: number;
+
   
   timeSlotsIds: number[];
   timeSlots:KioskTimeSlot[]
