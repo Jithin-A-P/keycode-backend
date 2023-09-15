@@ -23,7 +23,7 @@ export class KioskQMedia {
   @IsString()
   name?: string;
 
-  @ValidateIf(input => input.type === KioskQMediaType.AD)
+  @ValidateIf(input => input.type === KioskQMediaType.AD || input.type === KioskQMediaType.ADVERTISE_HERE)
   @IsNotEmpty()
   @ValidateNested({ each: true })
   @Type(() => MediaDto)
