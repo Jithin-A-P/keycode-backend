@@ -2,6 +2,6 @@ export enum MediaType {
   IMAGE = "image",
   VIDEO = "video",
   ANNOUNCEMENT = "announcement",
-  YOUTUBE_SHORTS = "youtube_shorts",
+  YOUTUBE = "youtube",
   INSTAGRAM_REEL = "instagram_reel"
 }

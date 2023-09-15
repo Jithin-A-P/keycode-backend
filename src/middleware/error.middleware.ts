@@ -23,14 +23,14 @@ const errorMiddleware = (
     if (error instanceof ValidationException) {
       res.statusMessage = HttpStatusMessages[`CODE_${error.status}`]
       res.status(error.status).send(error.errorPayload)
-      return
+      
     }
 
     if (error instanceof HttpException) {
       res.status(error.status)
       res.statusMessage = HttpStatusMessages[`CODE_${error.status}`]
       res.locals.errors = error.message
-      return
+      
     }
 
     if (error instanceof QueryFailedError) {

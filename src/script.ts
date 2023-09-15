@@ -1,16 +1,50 @@
 const axios = require('axios');
 
 // List of URLs to request sequentially
-const url='http://localhost:5000/api/kiosks/1/queue/add';
+const url='http://192.168.3.91:5000/api/kiosks/1/queue/add';
 const requestBodies = [
+
     {
       type: 'ad',
       qrcodeUrl: 'http://',
       media: {
         type: 'video',
-        url: 'http://localhost:5000/assets/royal-enfield.mp4',
+        url: 'http://192.168.3.91:5000/assets/royal-enfield.mp4',
       },
     },
+    {
+      type: 'ad',
+      qrcodeUrl: 'http://',
+      media: {
+        type: 'announcement',
+        title: 'Happy Work Anniversary Tristan !',
+      },
+    },
+    {
+      type: 'ad',
+      qrcodeUrl: 'http://',
+      media: {
+        type: 'announcement',
+        title: 'Happy Work Anniversary Bilta !',
+      },
+    },
+    {
+      type: 'ad',
+      qrcodeUrl: 'http://',
+      media: {
+        type: 'announcement',
+        title: 'Happy Work Anniversary Rose !',
+      },
+    },
+    {
+      type: 'ad',
+      qrcodeUrl: 'http://',
+      media: {
+        type: 'announcement',
+        title: 'Happy Work Anniversary Rose !',
+      },
+    },
+
     {
       type: 'advertise_here',
       qrcodeUrl: 'http://e',
@@ -21,7 +55,7 @@ const requestBodies = [
         qrcodeUrl: 'http://',
         media: {
           type: 'image',
-          url: 'http://localhost/assets/chai-met-toast.jpeg',
+          url: 'http://192.168.3.91:5000/assets/chai-met-toast.jpeg',
         },
       },
       {
@@ -33,7 +67,31 @@ const requestBodies = [
         qrcodeUrl: 'http://',
         media: {
           type: 'video',
-          url: 'http://localhost/assets/pixel.mp4',
+          url: 'http://192.168.3.91:5000/assets/pixel.mp4',
+        },
+      },
+      {
+        type: 'advertise_here',
+        qrcodeUrl: 'http://e',
+      },
+      {
+        type: 'ad',
+        qrcodeUrl: 'http://',
+        media: {
+          type: 'youtube',
+          url: 'https://youtube.com/shorts/mXVXlOhIQH0',
+        },
+      },
+      {
+        type: 'advertise_here',
+        qrcodeUrl: 'http://e',
+      },
+      {
+        type: 'ad',
+        qrcodeUrl: 'http://',
+        media: {
+          type: 'youtube',
+          url: 'https://youtube.com/shorts/Ck-y4AFsV1I',
         },
       },
       {
@@ -45,34 +103,9 @@ const requestBodies = [
         qrcodeUrl: 'http://',
         media: {
           type: 'video',
-          url: 'https://youtube.com/shorts/mXVXlOhIQH0?si=5ir9yXy1UMWFUFVN',
+          url: 'http://192.168.3.91:5000/assets/redken.mp4',
         },
       },
-      {
-        type: 'advertise_here',
-        qrcodeUrl: 'http://e',
-      },
-      {
-        type: 'ad',
-        qrcodeUrl: 'http://',
-        media: {
-          type: 'video',
-          url: 'https://youtube.com/shorts/Ck-y4AFsV1I?si=rU5SSf36l7OzLUzm',
-        },
-      },
-      {
-        type: 'advertise_here',
-        qrcodeUrl: 'http://e',
-      },
-      {
-        type: 'ad',
-        qrcodeUrl: 'http://',
-        media: {
-          type: 'video',
-          url: 'http://localhost/assets/redken.mp4',
-        },
-      },
-      
     // Add more request bodies as needed
   ];
   

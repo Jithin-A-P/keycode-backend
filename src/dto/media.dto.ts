@@ -6,11 +6,15 @@ class MediaDto {
   @IsString()
   title: string;
 
+  @IsOptional()
+  @IsString()
+  name: string;
+
   @IsNotEmpty()
   @IsEnum(MediaType)
   type: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
   url: string;
 }

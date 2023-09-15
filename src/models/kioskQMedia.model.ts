@@ -8,6 +8,7 @@ export enum KioskQMediaType {
   GAME_ONE_PLAYER = "game_one_player",
   GAME_TWO_PLAYERS = "game_two_players",
   ADVERTISE_HERE = "advertise_here",
+  YOUTUBE ="youtube"
 }
 
 export class KioskQMedia {
@@ -26,7 +27,7 @@ export class KioskQMedia {
   @IsString()
   name?: string;
 
-  @ValidateIf((input) => input.type === KioskQMediaType.AD)
+  @ValidateIf(input =>( input.type === KioskQMediaType.AD || input.type === KioskQMediaType.YOUTUBE))
   @IsNotEmpty()
   @ValidateNested({ each: true })
   @Type(() => MediaDto)

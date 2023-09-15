@@ -5,6 +5,7 @@ import validateQuery from "../middleware/validate-query.middleware";
 import KioskService from "../service/kiosk.service";
 import { KioskQMedia, KioskQMediaType } from "../models/kioskQMedia.model";
 import KioskQService, { KioskQServiceCls } from "../service/kioskQueue.service";
+import {socketioWebSocket} from "../app"
 import * as uuid from "uuid";
 
 export const redis = {};
@@ -20,6 +21,8 @@ class KioskController {
     this.router.post("/:id/queue/add", validateBody(KioskQMedia), this.addToKioskQueue);
 
     this.router.post("/:id/queue/request", this.gameRequest);
+    this.router.get("/:id/spin", this.spinTheWheel);
+
 
     // this.router.post("/:id/queue/add-to-front", validateBody(KioskQMedia), this.addToKioskQueueFront);
     this.router.get("/:id/queue/next", this.getNextKioskQueueItem);
@@ -108,6 +111,12 @@ class KioskController {
       next(error);
     }
   };
+
+  private spinTheWheel = async (req: Request, res: Response, next: NextFunction) => {
+    socketioWebSocket.emit("spin", "spin");
+    next();
+  }
+
 
   private gameRequest = async (req: Request, res: Response, next: NextFunction) => {
     const currentData = redis[req.params.id];

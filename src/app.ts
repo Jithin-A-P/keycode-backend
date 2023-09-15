@@ -77,7 +77,7 @@ dataSource
   });
 
 const websocketServer = http.createServer();
-const socketioWebSocket = new SocketIOServer(websocketServer, { cors: { origin: "*" } });
+export const socketioWebSocket = new SocketIOServer(websocketServer, { cors: { origin: "*" } });
 const screenPool = {};
 
 socketioWebSocket.on("connection", (socket) => {
@@ -100,9 +100,11 @@ socketioWebSocket.on("connection", (socket) => {
     console.log("game starting");
     socketioWebSocket.emit("show_buttons");
   });
-  socket.on("game_ended", (data) => {
+  socket.on("game_end_request", (data) => {
     console.log("game ended");
+    console.log("############",data)
     redis[data.screenId] = undefined;
+    console.log(redis[data.screenId])
     socketioWebSocket.emit("game_ended", data);
   });
   socket.on("button_click", (data) => {
@@ -135,6 +137,7 @@ socketioWebSocket.on("connection", (socket) => {
     logger.log({ level: "info", message: "Socket.io HTTP client disconnected" });
   });
 });
+
 
 Promise.all([pubClient.connect(), subClient.connect()]).then(() => {
   socketioWebSocket.adapter(createAdapter(pubClient, subClient));
