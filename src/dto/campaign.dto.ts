@@ -1,6 +1,7 @@
 import { IsDate, IsNotEmpty, IsString, IsArray, ValidateNested, IsObject, IsNumber } from 'class-validator';
 import { Type } from 'class-transformer';
 import MediaDto from './media.dto';
+import KioskTimeSlot from '../entity/kioskTimeslot.entity';
 
 
 class CampaignDto {
@@ -9,16 +10,16 @@ class CampaignDto {
   name: string;
 
   @IsNotEmpty()
-  @IsDate()
-  startDate: Date;
+  @IsString()
+  startDate: string;
 
   @IsNotEmpty()
-  @IsDate()
-  endDate: Date;
+  @IsString()
+  endDate: string;
 
   @IsNotEmpty()
   @IsNumber()
-  mediaId: Number
+  mediaId: number;
 
   @IsNotEmpty()
   @IsNumber()
@@ -28,9 +29,8 @@ class CampaignDto {
   @IsNumber()
   frequency: number;
   
-  @ValidateNested({ each: true })
-  @Type(() => Number)
-  timeslotsIds: number[];
+  timeSlotsIds: number[];
+  timeSlots:KioskTimeSlot[]
 }
 
 export default CampaignDto  ;

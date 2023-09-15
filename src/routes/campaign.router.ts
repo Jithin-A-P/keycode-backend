@@ -1,12 +1,16 @@
 import CampaignController from "../controller/campaign.controller";
 import dataSource from "../db/postgres.db";
 import Campaign from "../entity/campaign.entity";
+import KioskTimeSlot from "../entity/kioskTimeslot.entity";
 import CampaignRepository from "../repository/campaign.repository";
+import KioskTimeSlotRepository from "../repository/kiosk.timeslot.repository";
 import CamapignService from "../service/campaign.service";
 
 const campaignRepository = new CampaignRepository(dataSource.getRepository(Campaign));
+const kioskTimeslotRepository = new KioskTimeSlotRepository(dataSource.getRepository(KioskTimeSlot));
 
-const campaignService = new CamapignService(campaignRepository);
+
+const campaignService = new CamapignService(campaignRepository,kioskTimeslotRepository);
 
 const campaignControler = new CampaignController(campaignService);
 

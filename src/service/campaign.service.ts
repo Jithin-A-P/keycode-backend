@@ -1,11 +1,11 @@
 import Campaign from '../entity/campaign.entity'; // Import your campaign entity
 import NotFoundException from '../exception/not-found.exception';
-import KioskDto from '../dto/kiosk.dto';
 import CampaignRepository from '../repository/campaign.repository';
-import CampaignDto from '../dto/Campaign.dto';
+import CampaignDto from '../dto/campaign.dto';
+import KioskTimeSlotRepository from '../repository/kiosk.timeslot.repository';
 
 class CamapignService {
-  constructor(private campaignRepository: CampaignRepository) {}
+  constructor(private campaignRepository: CampaignRepository,private kioskTimeslotRepository: KioskTimeSlotRepository ) {}
 
   public getAllCampaigns = (
     rowsPerPage: number,
@@ -39,8 +39,11 @@ class CamapignService {
   }
 
   public addCampaign = async (campaignDto: CampaignDto): Promise<Campaign> => {
-    const campaign = await this.campaignRepository.add(campaignDto);
+    const {  timeSlotsIds,...rest } = campaignDto;
+    const kiosktimeSlots = await this.kioskTimeslotRepository.findByIds(timeSlotsIds);
+    rest.timeSlots= kiosktimeSlots;
 
+    const campaign = await this.campaignRepository.add(rest);
     return campaign;
   }
 

@@ -4,7 +4,8 @@ import { isUUID } from 'class-validator';
 import BadRequestException from '../exception/bad-request.exception';
 import validateQuery from '../middleware/validate-query.middleware';
 import CampaignService from '../service/campaign.service';
-import CampaignDto from '../dto/Campaign.dto';
+import CampaignDto from '../dto/campaign.dto';
+import { plainToClass } from 'class-transformer';
 
 class CampaignController {
   public router: Router;
