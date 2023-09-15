@@ -13,6 +13,7 @@ import logger from './utils/winston.logger'
 import { Server as SocketIOServer } from 'socket.io'
 import http from 'http'
 import kioskRouter from './routes/kiosk.router'
+import mediaRouter from './routes/media.router'
 
 const server = express()
 const PORT = process.env.PORT
@@ -21,6 +22,7 @@ server.use(cors())
 server.use(express.json())
 server.use(loggerMiddleware)
 server.use('/api/kiosks', kioskRouter)
+server.use('/api/medias', mediaRouter)
 server.use(responseMiddleware)
 server.use(errorMiddleware)
 
