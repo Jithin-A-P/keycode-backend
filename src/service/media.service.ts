@@ -5,6 +5,8 @@ import MediaDto from '../dto/media.dto';
 import { MediaType } from '../enums/mediaType';
 import axios from 'axios';
 import HttpException from '../exception/http.exception';
+import * as dotenv from 'dotenv'
+dotenv.config({ path: __dirname + '/../.env' })
 
 class MediaService {
   constructor(private mediaRepository: MediaRepository) {}
@@ -47,7 +49,7 @@ class MediaService {
         { input: mediaDto.title },
         {
           headers: {
-            Authorization: `Bearer ${`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`}`,
+            Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
             'Content-Type': 'application/json'
           },
         },

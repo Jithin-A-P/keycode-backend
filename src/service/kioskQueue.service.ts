@@ -24,11 +24,10 @@ export class KioskQServiceCls {
 
   getNextKioskQItem(kioskId: string) {
     const current =this.queues[kioskId][0]
-    this.queues[kioskId].shift();
     if(current.type!==KioskQMediaType.GAME){
       this.queues[kioskId].push(current)
     }
-    return this.queues[kioskId]
+    return this.queues[kioskId].shift();
   }
 }
 
