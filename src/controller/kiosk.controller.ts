@@ -1,9 +1,6 @@
 import { Router, Request, Response, NextFunction } from 'express';
-import authenticate from '../middleware/authenticate.middleware';
 import validateBody from '../middleware/validate-body.middleware';
 import KioskDto from '../dto/kiosk.dto';
-import { isUUID } from 'class-validator';
-import BadRequestException from '../exception/bad-request.exception';
 import validateQuery from '../middleware/validate-query.middleware';
 import KioskService from '../service/kiosk.service';
 
@@ -49,7 +46,6 @@ class KioskController {
   private getKioskById = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const kioskId = req.params.id;
-      if (!isUUID(kioskId)) throw new BadRequestException('Invalid kiosk id');
 
       const kiosk = await this.kioskService.getKioskById(kioskId);
       res.status(200);
@@ -63,7 +59,6 @@ class KioskController {
   private updateKioskById = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const kioskId = req.params.id;
-      if (!isUUID(kioskId)) throw new BadRequestException('Invalid kiosk id');
 
       const updatedKiosk = await this.kioskService.updateKiosk(kioskId, req.body);
 
@@ -78,7 +73,6 @@ class KioskController {
   private removeKioskById = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const kioskId = req.params.id;
-      if (!isUUID(kioskId)) throw new BadRequestException('Invalid kiosk id');
 
       await this.kioskService.removeKioskById(kioskId);
 
