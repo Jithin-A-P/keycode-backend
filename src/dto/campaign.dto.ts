@@ -41,6 +41,9 @@ class CampaignDto {
   @IsNumber()
   totalViews: number;
 
+  @IsNotEmpty()
+  @IsNumber()
+  kiosksCount: number;
   
   timeSlotsIds: number[];
   timeSlots:KioskTimeSlot[]

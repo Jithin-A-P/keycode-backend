@@ -18,6 +18,12 @@ class Kiosk {
   @Column()
   city: string;
 
+  @Column()
+  latitude: string;
+
+  @Column()
+  longitude: string;
+
   @Column({ type: "json" })
   tags: string[];
 

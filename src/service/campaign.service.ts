@@ -52,7 +52,7 @@ class CamapignService {
       out.push({"kiosk":kiosk,"selectedTimeslots":kisokTimeSlots})
     }
     
-    return {"camapaign":campaignCopy,media,"kioskDetails":out};
+    return {"campaign":campaignCopy,media,"kioskDetails":out};
   }
 
   public removeCampaignById = async (id: string): Promise<void> => {
