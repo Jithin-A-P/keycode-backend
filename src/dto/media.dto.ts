@@ -1,8 +1,12 @@
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsEnum, IsNotEmpty, IsString } from 'class-validator';
+import { MediaType } from '../enums/mediaType';
 
 class MediaDto {
-  @IsNotEmpty()
   @IsString()
+  title: string;
+
+  @IsNotEmpty()
+  @IsEnum(MediaType)
   type: string;
 
   @IsNotEmpty()
