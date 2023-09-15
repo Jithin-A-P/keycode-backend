@@ -3,16 +3,22 @@ import validateBody from '../middleware/validate-body.middleware';
 import KioskDto from '../dto/kiosk.dto';
 import validateQuery from '../middleware/validate-query.middleware';
 import KioskService from '../service/kiosk.service';
+import { KioskQService } from '../service/kioskQueue.service';
+import { KioskQMedia } from '../models/kioskQMedia.model';
 
 class KioskController {
   public router: Router;
+  private kioskQService: KioskQService;
   constructor(private kioskService: KioskService) {
     this.router = Router();
     this.router.get('/', validateQuery, this.getAllKiosks);
     this.router.post('/', validateBody(KioskDto), this.addKiosk);
+    this.router.post('/:id/queue', validateBody(KioskQMedia), this.addToKioskQueue);
+    this.router.get('/:id/queue', this.getKioskQueue);
     this.router.get('/:id', this.getKioskById);
     this.router.put('/:id', validateBody(KioskDto), this.updateKioskById);
     this.router.delete('/:id', this.removeKioskById);
+    this.kioskQService = new KioskQService();
   }
 
   private addKiosk = async (req: Request, res: Response, next: NextFunction) => {
@@ -80,6 +86,28 @@ class KioskController {
       next();
     } catch (error) {
       next(error);
+    }
+  }
+
+  private addToKioskQueue = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const addedKiosk = this.kioskQService.addToKioskQueue(req.params.id, req.body);
+
+      // res.locals.data = addedKiosk;
+      res.status(201);
+      next();
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  private getKioskQueue = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      res.locals.data = this.kioskQService.getKioskQueue(req.params.id);
+      res.status(200);
+      next();
+    } catch (err) {
+      next(err);
     }
   }
 }
