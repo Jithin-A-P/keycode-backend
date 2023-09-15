@@ -1,4 +1,4 @@
-import { KioskQMedia } from "../models/kioskQMedia.model";
+import { KioskQMedia, KioskQMediaType } from "../models/kioskQMedia.model";
 
 export class KioskQServiceCls {
   queues: { [key: string]: KioskQMedia[] };
@@ -23,7 +23,12 @@ export class KioskQServiceCls {
   }
 
   getNextKioskQItem(kioskId: string) {
-    return this.queues[kioskId].shift();
+    const current =this.queues[kioskId][0]
+    this.queues[kioskId].shift();
+    if(current.type!==KioskQMediaType.GAME){
+      this.queues[kioskId].push(current)
+    }
+    return this.queues[kioskId]
   }
 }
 

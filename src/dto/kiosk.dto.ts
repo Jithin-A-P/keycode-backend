@@ -19,6 +19,14 @@ class KioskDto {
   @IsString()
   city: string;
 
+  @IsNotEmpty()
+  @IsString()
+  latitude: string;
+
+  @IsNotEmpty()
+  @IsString()
+  longitude: string;
+
   @IsArray()
   @IsString({ each: true })
   tags: string[];
