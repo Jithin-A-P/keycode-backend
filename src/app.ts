@@ -63,6 +63,10 @@ dataSource
 const websocketServer = http.createServer();
 const socketioWebSocket = new SocketIOServer(websocketServer, {cors: {origin: "*"}});
 const screenPool = {};
+
+
+
+
 socketioWebSocket.on('connection', (socket) => {
   logger.log({ level: 'info', message: 'Socket.io HTTP client connected' });
   const connectionDetails = socket.handshake.query;
@@ -95,7 +99,17 @@ socketioWebSocket.on('connection', (socket) => {
     })
     await kioskService.updateKioskTimeSlot(JSON.parse(message));
   });
-
+socket.on("game_request", (screenId, fn)=>{
+  // check in redis about the screenId status
+  // if In queue send status as failure
+  // if 1p push to queue and send success data and playerA
+  // if 2p and empty redis, Change redis status to "waiting_for_player"and send success data back as playerA
+  // if 2p and if status is "waiting_for_player"//  push to queue and update statsu as inqueue and send success data back as playerB
+  console.log("invoking game....")
+  // Check some logic
+  // send {player and game info}
+  fn({status:"suucess", game:"TUG", player:"playerA"})
+});
 
   socket.on('disconnect', () => {
     logger.log({ level: 'info', message: 'Socket.io HTTP client disconnected' })
