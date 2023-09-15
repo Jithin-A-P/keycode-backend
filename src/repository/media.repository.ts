@@ -13,7 +13,7 @@ class MediaRepository {
 
   public findById = (id: string): Promise<Media> => {
     return this.mediaRepository.findOne({
-      where: { id: id },
+      where: { id: Number(id) },
     });
   }
 

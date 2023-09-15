@@ -4,7 +4,7 @@ import KioskTimeSlot from "./kioskTimeslot.entity";
 @Entity()
 class Kiosk {
   @PrimaryGeneratedColumn()
-  id: string;
+  id: number;
 
   @Column()
   title: string;

@@ -4,7 +4,7 @@ import Campaign from "./campaign.entity"
 @Entity()
 class Media {
   @PrimaryGeneratedColumn()
-  id: string;
+  id: number;
 
   @Column()
   type: string;
