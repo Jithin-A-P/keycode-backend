@@ -29,6 +29,7 @@ const PORT = process.env.PORT
 server.use(cors())
 server.use(express.json())
 server.use(loggerMiddleware)
+server.use('/assets', express.static('public'));
 server.use('/api/kiosks', kioskRouter)
 server.use('/api/medias', mediaRouter)
 server.use('/api/campaigns', campaignRouter)
