@@ -12,7 +12,7 @@ class Media {
   @Column()
   url: string;
 
-  @OneToMany(() => Campaign, (campaign) => campaign.media, { cascade: true })
+  @OneToMany(() => Campaign, (campaign) => campaign.media, { cascade: true, lazy:true })
   campaigns: Campaign[];
 }
 

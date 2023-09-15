@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToMany,ManyToOne } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToMany,ManyToOne ,  JoinTable} from "typeorm";
 import KioskTimeSlot from "./kioskTimeslot.entity";
 import Media from "./media.entity";
 
@@ -22,12 +22,17 @@ class Campaign {
 
   @Column()
   frequency: number;
+  
+  @Column()
+  mediaId: number;
 
-  @ManyToOne(() => Media, (media) => media.campaigns)
+  @ManyToOne(() => Media, (media) => media.campaigns,{ eager: true })
+  @JoinTable({name:'mediaId'})
   media: Media;
 
-  @ManyToMany(() => KioskTimeSlot, (timeSlot) => timeSlot.campaigns,)
-  timeslots: KioskTimeSlot[];
+  @ManyToMany(() => KioskTimeSlot, (timeSlot) => timeSlot.campaigns,{ eager: true })
+  @JoinTable()
+  timeSlots: KioskTimeSlot[];
 }
 
 export default Campaign;

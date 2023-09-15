@@ -25,7 +25,7 @@ class KioskTimeSlot {
   @ManyToOne(() => Kiosk, (kiosk) => kiosk.timeslots)
   kiosk: Kiosk;
 
-  @ManyToMany(() => Campaign, (campaign) => campaign.timeslots, { cascade: true })
+  @ManyToMany(() => Campaign, (campaign) => campaign.timeSlots,{lazy:true})
   campaigns:Campaign[]
 }
 

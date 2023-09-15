@@ -14,6 +14,7 @@ import { Server as SocketIOServer } from 'socket.io'
 import http from 'http'
 import kioskRouter from './routes/kiosk.router'
 import mediaRouter from './routes/media.router'
+import campaignRouter from './routes/campaign.router'
 
 const server = express()
 const PORT = process.env.PORT
@@ -23,6 +24,8 @@ server.use(express.json())
 server.use(loggerMiddleware)
 server.use('/api/kiosks', kioskRouter)
 server.use('/api/medias', mediaRouter)
+server.use('/api/campaigns', campaignRouter)
+
 server.use(responseMiddleware)
 server.use(errorMiddleware)
 

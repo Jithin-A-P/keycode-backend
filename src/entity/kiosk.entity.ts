@@ -21,7 +21,7 @@ class Kiosk {
   @Column({ type: "json" })
   tags: string[];
 
-  @OneToMany(() => KioskTimeSlot, (timeSlot) => timeSlot.kiosk, { cascade: true })
+  @OneToMany(() => KioskTimeSlot, (timeSlot) => timeSlot.kiosk, { cascade: true ,eager:true})
   timeslots: KioskTimeSlot[];
 }
 
