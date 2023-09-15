@@ -17,6 +17,11 @@ import { createAdapter } from "@socket.io/redis-adapter";
 import kioskRouter from './routes/kiosk.router'
 import mediaRouter from './routes/media.router'
 import campaignRouter from './routes/campaign.router'
+import KioskRepository from './repository/kiosk.repository'
+import KioskTimeSlotRepository from './repository/kiosk.timeslot.repository'
+import Kiosk from './entity/kiosk.entity'
+import KioskTimeSlot from './entity/kioskTimeslot.entity'
+import KioskService from './service/kiosk.service'
 
 const server = express()
 const PORT = process.env.PORT
@@ -33,6 +38,11 @@ server.use(errorMiddleware)
 
 const pubClient = createClient({  url: "redis://localhost:6379" });
 const subClient = pubClient.duplicate();
+
+const kioskRepository = new KioskRepository(dataSource.getRepository(Kiosk));
+const kioskTimeslotRepository = new KioskTimeSlotRepository(dataSource.getRepository(KioskTimeSlot));
+
+const kioskService = new KioskService(kioskRepository, kioskTimeslotRepository);
 
 
 dataSource
@@ -81,11 +91,12 @@ socketioWebSocket.on('connection', (socket) => {
     screenPool[screenId].emit("button_click_data", data); 
   })
 
-  socket.on('message', (message) => {
+  socket.on('kioskViewCount', async (message) => {
     logger.log({
       level: 'info',
       message: `Received Socket.io HTTP message: ${message}`,
     })
+    await kioskService.updateKioskTimeSlot(JSON.parse(message));
   });
 socket.on("game_request", (screenId, fn)=>{
   // check in redis about the screenId status
