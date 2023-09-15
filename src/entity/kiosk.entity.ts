@@ -1,9 +1,4 @@
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  OneToMany,
-} from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
 import KioskTimeSlot from "./kioskTimeslot.entity";
 
 @Entity()
@@ -26,7 +21,7 @@ class Kiosk {
   @Column({ type: "json" })
   tags: string[];
 
-  @OneToMany(() => KioskTimeSlot, (timeSlot) => timeSlot.kiosk)
+  @OneToMany(() => KioskTimeSlot, (timeSlot) => timeSlot.kiosk, { cascade: true })
   timeslots: KioskTimeSlot[];
 }
 
