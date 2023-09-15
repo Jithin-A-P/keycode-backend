@@ -10,6 +10,8 @@ export enum KioskQMediaType {
 }
 
 export class KioskQMedia {
+  id: number;
+
   @IsEnum(KioskQMediaType)
   type: KioskQMediaType;
 
