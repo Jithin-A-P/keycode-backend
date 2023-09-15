@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column ,OneToMany} from 'typeorm';
+import Campaign from "./campaign.entity"
 
 @Entity()
 class Media {
@@ -10,6 +11,9 @@ class Media {
 
   @Column()
   url: string;
+
+  @OneToMany(() => Campaign, (campaign) => campaign.media, { cascade: true })
+  campaigns: Campaign[];
 }
 
 export default Media;
