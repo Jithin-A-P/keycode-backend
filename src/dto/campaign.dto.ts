@@ -1,4 +1,4 @@
-import { IsDate, IsNotEmpty, IsString, IsArray, ValidateNested, IsObject, IsNumber } from 'class-validator';
+import { IsDate, IsNotEmpty, IsString, IsArray, ValidateNested, IsObject, IsNumber, IsOptional } from 'class-validator';
 import { Type } from 'class-transformer';
 import MediaDto from './media.dto';
 import KioskTimeSlot from '../entity/kioskTimeslot.entity';
@@ -21,7 +21,7 @@ class CampaignDto {
   @IsNumber()
   mediaId: number;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsNumber()
   duration: number;
 

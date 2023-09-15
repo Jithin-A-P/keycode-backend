@@ -2,6 +2,9 @@ import Media from '../entity/media.entity';
 import MediaRepository from '../repository/media.repository';
 import NotFoundException from '../exception/not-found.exception';
 import MediaDto from '../dto/media.dto';
+import { MediaType } from '../enums/mediaType';
+import axios from 'axios';
+import HttpException from '../exception/http.exception';
 
 class MediaService {
   constructor(private mediaRepository: MediaRepository) {}
@@ -38,6 +41,21 @@ class MediaService {
   }
 
   public addMedia = async (mediaDto: MediaDto): Promise<Media> => {
+    if (mediaDto.type === MediaType.ANNOUNCEMENT) {
+      const result = await axios.post(
+        `https://api.openai.com/v1/moderations`,
+        { input: mediaDto.title },
+        {
+          headers: {
+            Authorization: `Bearer ${`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`}`,
+            'Content-Type': 'application/json'
+          },
+        },
+      );
+      if (result.data.results[0].flagged) {
+        throw new HttpException(400, 'The uploaded media content has been flagged');
+      }
+    }
     const newMedia = await this.mediaRepository.add(mediaDto);
 
     return newMedia;
