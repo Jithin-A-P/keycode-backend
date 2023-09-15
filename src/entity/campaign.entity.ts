@@ -23,10 +23,10 @@ class Campaign {
   @Column()
   frequency: number;
 
-  @ManyToOne(() => Media, (media) => media.campaigns,{ cascade: true })
+  @ManyToOne(() => Media, (media) => media.campaigns)
   media: Media;
 
-  @ManyToMany(() => KioskTimeSlot, (timeSlot) => timeSlot.campaigns, { cascade: true })
+  @ManyToMany(() => KioskTimeSlot, (timeSlot) => timeSlot.campaigns,)
   timeslots: KioskTimeSlot[];
 }
 
