@@ -12,6 +12,7 @@ import responseMiddleware from './middleware/response.middleware'
 import logger from './utils/winston.logger'
 import { Server as SocketIOServer } from 'socket.io'
 import http from 'http'
+import kioskRouter from './routes/kiosk.router'
 
 const server = express()
 const PORT = process.env.PORT
@@ -19,7 +20,7 @@ const PORT = process.env.PORT
 server.use(cors())
 server.use(express.json())
 server.use(loggerMiddleware)
-server.use('/api/users', userRoute)
+server.use('/api/kiosks', kioskRouter)
 server.use(responseMiddleware)
 server.use(errorMiddleware)
 

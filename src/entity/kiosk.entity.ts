@@ -4,10 +4,10 @@ import {
   Column,
   OneToMany,
 } from "typeorm";
-import { KioskTimeSlot } from "./kioskTimeslot.entity";
+import KioskTimeSlot from "./kioskTimeslot.entity";
 
 @Entity()
-export class Kiosk {
+class Kiosk {
   @PrimaryGeneratedColumn()
   id: string;
 
@@ -29,3 +29,5 @@ export class Kiosk {
   @OneToMany(() => KioskTimeSlot, (timeSlot) => timeSlot.kiosk)
   timeslots: KioskTimeSlot[];
 }
+
+export default Kiosk;

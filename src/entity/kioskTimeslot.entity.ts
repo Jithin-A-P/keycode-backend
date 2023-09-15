@@ -1,8 +1,8 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm";
-import { Kiosk } from "./kiosk.entity";
+import Kiosk from "./kiosk.entity";
 
 @Entity()
-export class KioskTimeSlot {
+class KioskTimeSlot {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -24,3 +24,5 @@ export class KioskTimeSlot {
   @ManyToOne(() => Kiosk, (kiosk) => kiosk.timeslots)
   kiosk: Kiosk;
 }
+
+export default KioskTimeSlot;
