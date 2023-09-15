@@ -54,8 +54,15 @@ class MediaService {
           },
         },
       );
+      const categories = result.data.results[0].categories;
+      const keysWithTrueValues: string[] = [];
+      for (const key in categories) {
+        if (categories.hasOwnProperty(key) && categories[key] === true) {
+        keysWithTrueValues.push(key);
+      }
+}
       if (result.data.results[0].flagged) {
-        throw new HttpException(400, 'The uploaded media content has been flagged');
+        throw new HttpException(400, `The uploaded media content has been flagged due to ${keysWithTrueValues.join(', ')}`);
       }
     }
     const newMedia = await this.mediaRepository.add(mediaDto);
