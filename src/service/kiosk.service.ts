@@ -27,6 +27,7 @@ class KioskService {
 
   public getKioskById = async (id: string): Promise<Kiosk> => {
     const kiosk = await this.kioskRepository.findById(id);
+    kiosk.timeslots.sort((a, b) => (a.time < b.time ? -1 : 1));
     if (!kiosk) {
       throw new NotFoundException(`Kiosk not found with id: ${id}`);
     }
