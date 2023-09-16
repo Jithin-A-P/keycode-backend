@@ -17,31 +17,7 @@ const requestBodies = [
       qrcodeUrl: 'http://',
       media: {
         type: 'announcement',
-        title: 'Happy Work Anniversary Tristan !',
-      },
-    },
-    {
-      type: 'ad',
-      qrcodeUrl: 'http://',
-      media: {
-        type: 'announcement',
-        title: 'Happy Work Anniversary Bilta !',
-      },
-    },
-    {
-      type: 'ad',
-      qrcodeUrl: 'http://',
-      media: {
-        type: 'announcement',
-        title: 'Happy Work Anniversary Rose !',
-      },
-    },
-    {
-      type: 'ad',
-      qrcodeUrl: 'http://',
-      media: {
-        type: 'announcement',
-        title: 'Happy Work Anniversary Rose !',
+        title: 'Happy Work Anniversary!',
       },
     },
     {
@@ -66,14 +42,6 @@ const requestBodies = [
         media: {
           type: 'youtube',
           url: 'https://youtube.com/shorts/mXVXlOhIQH0',
-        },
-      },
-      {
-        type: 'ad',
-        qrcodeUrl: 'http://',
-        media: {
-          type: 'youtube',
-          url: 'https://youtube.com/shorts/Ck-y4AFsV1I',
         },
       },
       {
