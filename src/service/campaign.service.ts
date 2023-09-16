@@ -5,11 +5,14 @@ import CampaignDto from '../dto/campaign.dto';
 import KioskTimeSlotRepository from '../repository/kiosk.timeslot.repository';
 import KioskTimeSlot from '../entity/kioskTimeslot.entity';
 import KioskRepository from '../repository/kiosk.repository';
+import KioskQService  from './kioskQueue.service';
+import { KioskQMediaType } from '../models/kioskQMedia.model';
 
 class CamapignService {
   constructor(private campaignRepository: CampaignRepository,
     private kioskTimeslotRepository: KioskTimeSlotRepository,
-    private kioskRepository: KioskRepository ) {}
+    private kioskRepository: KioskRepository ,
+    ) {}
 
   public getAllCampaigns = (
     rowsPerPage: number,
@@ -70,6 +73,13 @@ class CamapignService {
     rest.timeSlots= kiosktimeSlots;
     const campaign = Object.assign(new Campaign(), rest);
     await this.campaignRepository.add(campaign);
+    const type=KioskQMediaType.AD;
+    const media ={... campaign.media,instant:false};
+    delete media['campaigns'];
+    const data ={media,type,status:'ACTIVE',qrcodeUrl:'hello'}
+    KioskQService.addToKioskQFront('1',data)
+    KioskQService.addToKioskQAtPos(3,'1',data)
+
     return campaign;
   }
 

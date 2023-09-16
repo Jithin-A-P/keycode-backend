@@ -12,7 +12,6 @@ const campaignRepository = new CampaignRepository(dataSource.getRepository(Campa
 const kioskTimeslotRepository = new KioskTimeSlotRepository(dataSource.getRepository(KioskTimeSlot));
 const kioskRepository = new KioskRepository(dataSource.getRepository(Kiosk));
 
-
 const campaignService = new CamapignService(campaignRepository,kioskTimeslotRepository,kioskRepository);
 
 const campaignControler = new CampaignController(campaignService);

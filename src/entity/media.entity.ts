@@ -13,7 +13,10 @@ class Media {
   name: string;
 
   @Column({ nullable: true })
-  url?: string;
+  title: string;
+
+  @Column({ nullable: true })
+  url: string;
 
   @OneToMany(() => Campaign, (campaign) => campaign.media, { cascade: true, lazy:true })
   campaigns: Campaign[];

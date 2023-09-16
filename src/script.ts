@@ -44,12 +44,6 @@ const requestBodies = [
         title: 'Happy Work Anniversary Rose !',
       },
     },
-
-    {
-      type: 'advertise_here',
-      qrcodeUrl: 'http://e',
-     
-    },
     {
         type: 'ad',
         qrcodeUrl: 'http://',
@@ -57,10 +51,6 @@ const requestBodies = [
           type: 'image',
           url: 'http://192.168.3.91:5000/assets/chai-met-toast.jpeg',
         },
-      },
-      {
-        type: 'advertise_here',
-        qrcodeUrl: 'http://e',
       },
       {
         type: 'ad',
@@ -71,10 +61,6 @@ const requestBodies = [
         },
       },
       {
-        type: 'advertise_here',
-        qrcodeUrl: 'http://e',
-      },
-      {
         type: 'ad',
         qrcodeUrl: 'http://',
         media: {
@@ -83,20 +69,12 @@ const requestBodies = [
         },
       },
       {
-        type: 'advertise_here',
-        qrcodeUrl: 'http://e',
-      },
-      {
         type: 'ad',
         qrcodeUrl: 'http://',
         media: {
           type: 'youtube',
           url: 'https://youtube.com/shorts/Ck-y4AFsV1I',
         },
-      },
-      {
-        type: 'advertise_here',
-        qrcodeUrl: 'http://e',
       },
       {
         type: 'ad',

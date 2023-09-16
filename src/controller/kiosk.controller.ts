@@ -121,7 +121,6 @@ class KioskController {
   private gameRequest = async (req: Request, res: Response, next: NextFunction) => {
     const currentData = redis[req.params.id];
     const player = "";
-    console.log(currentData, ":", req.body.type);
     try {
       if (currentData === "in_queue") {
         throw new Error("Game already running");

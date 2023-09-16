@@ -6,6 +6,8 @@ import { MediaType } from '../enums/mediaType';
 import axios from 'axios';
 import HttpException from '../exception/http.exception';
 import * as dotenv from 'dotenv'
+import KioskQService from './kioskQueue.service';
+import { KioskQMediaType } from '../models/kioskQMedia.model';
 dotenv.config({ path: __dirname + '/../.env' })
 
 class MediaService {
@@ -42,8 +44,11 @@ class MediaService {
     await this.mediaRepository.remove(media);
   }
 
-  public addMedia = async (mediaDto: MediaDto): Promise<Media> => {
+  public addMedia = async (mediaDto: MediaDto): Promise<any> => {
+    let type = undefined
+    let media = undefined
     if (mediaDto.type === MediaType.ANNOUNCEMENT) {
+      media= {}
       const result = await axios.post(
         `https://api.openai.com/v1/moderations`,
         { input: mediaDto.title },
@@ -65,9 +70,17 @@ class MediaService {
         throw new HttpException(400, `The uploaded media content has been flagged due to ${keysWithTrueValues.join(', ')}`);
       }
     }
-    const newMedia = await this.mediaRepository.add(mediaDto);
-
-    return newMedia;
+    
+    if (mediaDto.instant === true) {
+      const type = KioskQMediaType.AD;
+      media = media === undefined? mediaDto:null;
+      const data ={qrcodeUrl:'hello',type,media:mediaDto,status:"ACTIVE"};
+    const out =KioskQService.addToKioskQFront('1',data)
+    return mediaDto;
+    }else {
+      const newMedia = await this.mediaRepository.add(mediaDto);
+      return newMedia;
+    }
   }
 
   public updateMedia = async (
